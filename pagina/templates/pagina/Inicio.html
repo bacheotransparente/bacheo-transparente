@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es"> <!--IDIOMA ESPAÑOL-->
+
+<head> <!--Configuracion de la pagina-->
+    <meta charset="UTF-8">
+    <title>BACHEO TRANSPARENTE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style> /*Estilo de la pagina*/
+* {
+    box-sizing: border-box;
+    margin: 0; /*Quita los márgenes que el navegador pone*/
+    padding: 0; /*Quita los rellenos que el navegador pone*/
+    }
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: #ffffff;
+        display: flex;/*Activa flexbox: permite acomodar encabezado, contenido y pie*/
+        min-height: 100vh;/*Todo lo que este en el cuerpo mide toda la pantalla (100vh = 100% del alto)*/
+        flex-direction: column; /*Lo perteneciente al cuerpo lo acomoda uno debajo de otro como una columna*/
+    }
+         .encabezado {
+             background-color: #102B50;
+             color: #ffffff;
+             align-items: center;
+             justify-content: space-between;
+             padding: 0 48px;
+             min-height: 76px;
+             display: flex;
+             gap: 24px;
+         }
+             .logo{
+                  font-weight: 700; /*Grosor de la letra: 700 es negritas*/
+                  font-size: 18px;  /*Tamaño de letra*/
+                  line-height: 1.3; /*Altura de cada renglón: 1.3 veces el tamaño de la letra*/
+             }
+                 .logo span{
+                     font-size: 14px;
+                     font-weight: 400; /*Grosor normal, sin negritas*/
+                     opacity: 0.85; /*Lo vuelve 15% transparente, para que se vea más tenue*/
+                 }
+             .barra-navegacion {
+                 display: flex;
+                 gap: 45px;
+                 list-style: none;
+             }
+                 .barra-navegacion a {
+                     color: #ffffff;
+                     text-decoration: none; /*Quita el subrayado que los enlaces traen por defecto*/
+                     font-size: 15px; /*Tamaño de letra*/
+                 }
+         .seccion-principal {
+             flex: 1; /*Hace que la sección ocupe el espacio disponible.*/
+             display: flex;
+             justify-content: center; /*Centra horizontalmente*/
+             align-items: center; /*Centra verticalmente*/
+             padding: 20px 40px;
+             text-align: center;
+         }
+         .tarjeta{
+             width: 100%;
+             max-width: 900px;
+             margin: 0 auto
+         }
+
+             .tarjeta h1{
+                 color: #9E0757;
+                 font-size: 16px;
+                 font-weight: 600; /*Seminegrita*/
+                 margin-bottom: 15px;
+             }
+             .tarjeta h2{
+                 color:#102B50;
+                 font-family: 'Playfair Display', Georgia, serif;
+                 font-size: clamp(26px, 4vw, 35px);
+                 margin-bottom: 12px; /*Espacio debajo, antes del párrafo*/
+             }
+                 .tarjeta span{
+                     color: #F9AA19;
+                 }
+             .tarjeta p{
+                 color: #687B9B;
+                 margin-bottom: 20px;/*Espacio debajo*/
+                 font-size: 16px;
+                 opacity: 0.85; /*Lo vuelve 15% transparente, para que se vea más tenue*/
+             }
+             .boton-reportar-bache button{
+                 border: none; /*Quita el borde gris que traen los botones por defecto*/
+                 background-color: #9E0757;
+                 font-weight: 600; /*Seminegrita*/
+                 font-size:18px;
+                 margin-bottom: 15px;
+                 padding: 10px 10px;
+                 border-radius: 8px; /*Redondea esquinas*/
+             }
+                 .boton-reportar-bache a{
+                     font-family: "Poppins", sans-serif;
+                     color: #ffffff;
+                     text-decoration: none; /*Quita el subrayado que los enlaces traen por defecto*/
+                 }
+             .boton-consulta-reporte button{
+                 font-family: "Poppins", sans-serif;
+                 border: none; /*Quita el borde gris que traen los botones por defecto*/
+                 font-weight: 600; /*Seminegrita*/
+                 font-size:18px;
+                 color: #ffffff;
+                 background-color: #1761B5;
+                 padding: 10px 5px;
+                 border-radius:8px; /*Redondea esquinas*/
+                 max-width: 100%;
+             }
+             .boton-consulta-reporte input{
+                 font-size:15px;
+                 font-family: "Poppins", sans-serif;
+                 border-radius:8px; /*Redonde   a esquinas*/
+                 padding: 10px;
+             }
+         .pie-pagina{
+             background-color: #102B50;
+             color:#ffffff;
+             text-align: center; /*Alinear texto al centro*/
+             padding: 16px;
+         }
+
+@media (max-width: 768px) {
+
+    .encabezado {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+    .logo {
+        text-align: center;
+    }
+    .barra-navegacion {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .seccion-principal {
+        padding: 25px 15px 35px;
+    }
+    .tarjeta h1 {
+        font-size: 14px;
+    }
+    .tarjeta h2 {
+        font-size: 26px;
+    }
+    .tarjeta p {
+        font-size: 14px;
+    }
+    .boton-reportar-bache button {
+        width: 100%;
+        max-width: 280px;
+        min-height: 50px;
+    }
+    .boton-consulta-reporte {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .boton-consulta-reporte input {
+        width: 100%;
+        max-width: 280px;
+    }
+    .boton-consulta-reporte button {
+        width: 100%;
+        max-width: 280px;
+        min-height: 45px;
+    }
+    .pie-pagina {
+        font-size: 12px;
+        padding: 14px 10px;
+    }
+}
+
+</style>
+</head>
+
+<body><!--CUERPO-->
+
+   <header> <!--ENCABEZADO-->
+       <nav class="encabezado"> <!--nav significa navegacion-->
+           <div class = "logo">
+               BACHEO TRANSPARENTE <br>
+               <span>Alcaldía Miguel Hidalgo</span> <!--span sirve para poder darle estilo a una renglon del mismo parrafo-->
+           </div>
+           <ul class="barra-navegacion"> <!--ul significa lista sin orden, es decir no esta enumerada-->
+               <li> <!--il significa elemento de la lista-->
+                   <a href="Inicio.html">Inicio</a>
+               </li>
+               <li>
+                   <a href="reportar-bache.html">Reportar bache</a>
+               </li>
+               <li>
+                   <a href="presupuesto-transparencia.html">Presupuesto y transparencia </a>
+               </li>
+               <li>
+                   <a href="acceso-administrativo.html">Acceso administrativo</a>
+               </li>
+           </ul>
+       </nav>
+   </header>
+   <main class = "seccion-principal">
+       <section class="tarjeta"> <!--Primera seccion-->
+           <h1>BIENVENIDO A BACHEO TRANSPARENTE</h1>
+           <h2>Por una <span>mejor</span> vialidad</h2>
+           <p>Con tu apoyo hagamos esto realidad.</p>
+           <div class="boton-reportar-bache">
+               <button>
+                   <a href="reportar-bache.html">Reportar bache</a>
+               </button>
+           </div>
+           <div class="boton-consulta-reporte"> <!-- div significa contenedor, es decir permite agrupar-->
+               <input type="text" placeholder="Numero de folio"> <!--input permite al usuario escribir-->
+               <button>Buscar</button>
+           </div>
+       </section>
+   </main>
+   <footer class = "pie-pagina">Alcaldía Miguel Hidalgo · Bacheo transparente</footer>
+</body>
+</html>
+

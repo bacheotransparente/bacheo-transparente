@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es"> <!--IDIOMA ESPAÑOL-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>BACHEO TRANSPARENTE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style> /*Estilo de la pagina*/
+* {
+    box-sizing: border-box;
+    margin: 0; /*Quita los márgenes que el navegador pone*/
+    padding: 0; /*Quita los rellenos que el navegador pone*/
+    }
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: #ffffff;
+        display: flex;/*Activa flexbox: permite acomodar encabezado, contenido y pie*/
+        min-height: 100vh;/*Todo lo que este en el cuerpo mide toda la pantalla (100vh = 100% del alto)*/&#xA;        flex-direction: column; /*Lo perteneciente al cuerpo lo acomoda uno debajo de otro como una columna*/
+    }
+         .encabezado {
+             background-color: #102B50;
+             color: #ffffff;
+             align-items: center; /*Centra los elementos verticalmente*/
+             justify-content: space-between; /*Manda un elemento al extremo izquierdo y otro al derecho*/
+             padding: 0 48px; /*Espacio interior: 0 arriba y abajo, 48 px a izquierda y derecha*/
+             min-height: 76px; /*Altura mínima de la barra*/
+             display: flex;
+             gap: 24px; /*Espacio mínimo entre el logo y el menú*/
+         }
+             .logo{
+                  font-weight: 700; /*Grosor de la letra: 700 es negritas*/
+                  font-size: 18px;  /*Tamaño de letra*/
+                  line-height: 1.3; /*Altura de cada renglón: 1.3 veces el tamaño de la letra*/
+             }
+                 .logo span{
+                     font-size: 14px; /*Un poco más pequeño que "BACHEO TRANSPARENTE"*/
+                     font-weight: 400; /*Grosor normal, sin negritas*/
+                     opacity: 0.85; /*Lo vuelve 15% transparente, para que se vea más tenue*/
+                 }
+             .barra-navegacion {
+                 display: flex; /*Pone los enlaces en fila, uno junto al otro*/
+                 gap: 45px; /*Deja un espacio entre cada enlace*/
+                 list-style: none;
+             }
+                 .barra-navegacion a {
+                     color: #ffffff;
+                     text-decoration: none; /*Quita el subrayado que los enlaces traen por defecto*/
+                     font-size: 15px; /*Tamaño de letra*/
+                 }
+         .cuestionario{
+             text-align: center;
+             justify-content: center; /*Centra horizontalmente*/
+             align-items: center; /*Centra verticalmente*/
+             padding: 40px 20px;
+             flex-direction: column;
+         }
+             .cuestionario h1{
+                 color: #F9AA19;
+                 font-family: 'Playfair Display', Georgia, serif;
+                 font-weight: 800;
+                 font-size: 35px;
+                 margin-bottom: 30px;
+             }
+                 .cuestionario input{
+                     font-family: "Poppins", sans-serif;
+                     margin-bottom: 10px;
+                     font-size: 16px;
+                     border-radius: 8px;
+                 }
+             .cuestionario div{
+                 margin-bottom: 11.5px;
+             }
+             .boton-borrar{
+                 font-family: "Poppins", sans-serif;
+                 font-weight: 600;
+                 border: none;
+                 border-radius: 8px;
+                 padding: 5px 10px;
+                 font-size: 18px;
+                 color: #ffffff;
+                 background-color: #9E0757;
+                 cursor: pointer;
+             }
+             .boton-enviar{
+                 font-family: "Poppins", sans-serif;
+                 font-weight: 600;
+                 border: none;
+                 border-radius: 8px;
+                 padding: 5px 10px;
+                 font-size: 18px;
+                 color: #ffffff;
+                 background-color: #1761B5;
+                 cursor: pointer;
+             }
+         .pie-pagina{
+             background-color: #102B50;
+             color:#ffffff;
+             text-align: center; /*Alinear texto al centro*/
+             padding: 16px;
+         }
+    /* TELEFONOS */
+
+@media (max-width: 768px) {
+
+    .encabezado {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+    }
+    .logo {
+        text-align: center;
+    }
+    .barra-navegacion {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .cuestionario {
+        padding: 30px 15px;
+        width: 100%;
+    }
+    .cuestionario h1 {
+        font-size: 27px;
+        margin-bottom: 25px;
+    }
+    .cuestionario div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .cuestionario label {
+        font-size: 14px;
+    }
+    .cuestionario input {
+        width: 100%;
+        max-width: 300px;
+        font-size: 14px;
+        padding: 10px;
+    }
+    .boton-borrar,
+    .boton-enviar {
+        font-size: 15px;
+        padding: 9px 18px;
+        margin: 5px;
+    }
+    .pie-pagina {
+        font-size: 12px;
+        padding: 14px 10px;
+    }
+</style>
+</head>
+
+<body> <!--CUERPO-->
+
+    <header> <!--ENCABEZADO-->
+       <nav class="encabezado"> <!--nav significa navegacion-->
+           <div class = "logo">
+               BACHEO TRANSPARENTE <br>
+               <span>Alcaldía Miguel Hidalgo</span> <!--span sirve para poder darle estilo a una renglon del mismo parrafo-->
+           </div>
+           <ul class="barra-navegacion"> <!--ul significa lista sin orden, es decir no esta enumerada-->
+               <li> <!--il significa elemento de la lista-->
+                   <a href="Inicio.html">Inicio</a>
+               </li>
+               <li>
+                   <a href="reportar-bache.html">Reportar bache</a>
+               </li>
+               <li>
+                   <a href="presupuesto-transparencia.html">Presupuesto y transparencia </a>
+               </li>
+               <li>
+                   <a href="acceso-administrativo.html">Acceso administrativo</a>
+               </li>
+           </ul>
+       </nav>
+   </header>
+
+    <form method="POST" action="{% url 'guardar_reporte' %}">
+    {% csrf_token %}
+    <main class = "cuestionario">
+        <h1>CUESTIONARIO</h1>
+        {% if mensaje %}
+            <p>{{ mensaje }}</p>
+        {% endif %}
+        <div>
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" required name = "fecha" />
+        </div>
+        <div>
+            <label for="nombre">Nombres</label>
+            <input type="text" id="nombre" required name ="nombres"/>
+        </div>
+        <div>
+            <label for="telefono">Numero de telefono</label>
+            <input type="tel" id="telefono" required name="telefono"/>
+        </div>
+        <div>
+            <label for="CP">Codigo postal</label>
+            <input type="text" id="CP" required name = "codigo_postal" />
+        </div>
+        <div>
+            <label for="colonia">Colonia</label>
+            <input type="text" id="colonia" required name = "colonia"/>
+        </div>
+        <div>
+            <label for="calle">Calle</label>
+            <input type="text" id="calle" required name = "calle" />
+        </div>
+        <div>
+            <label for="referencia">Referencia</label>
+            <input type="text" id="referencia" name="referencia" required />
+        </div>
+        <button class = "boton-borrar" type="reset">Borrar</button>
+        <button class = "boton-enviar" type="submit">Enviar</button>
+    </main>
+    </form>
+    <footer class = "pie-pagina">Alcaldía Miguel Hidalgo · Bacheo transparente</footer>
+</body>

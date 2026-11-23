@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es"> <!--IDIOMA ESPAÑOL-->
+
+<head> <!--Configuracion de la pagina-->
+    <meta charset="UTF-8">
+    <title>BACHEO TRANSPARENTE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style> /*Estilo de la pagina*/
+* {
+    box-sizing: border-box;
+    margin: 0; /*Quita los márgenes que el navegador pone*/
+    padding: 0; /*Quita los rellenos que el navegador pone*/
+    }
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: #ffffff;
+        display: flex;/*Activa flexbox: permite acomodar encabezado, contenido y pie*/
+        min-height: 100vh;/*Todo lo que este en el cuerpo mide toda la pantalla (100vh = 100% del alto)*/
+        flex-direction: column; /*Lo perteneciente al cuerpo lo acomoda uno debajo de otro como una columna*/
+    }
+         .encabezado {
+             background-color: #102B50;
+             color: #ffffff;
+             align-items: center; /*Centra los elementos verticalmente*/
+             justify-content: space-between; /*Manda un elemento al extremo izquierdo y otro al derecho*/
+             padding: 0 48px; /*Espacio interior: 0 arriba y abajo, 48 px a izquierda y derecha*/
+             min-height: 76px; /*Altura mínima de la barra*/
+             display: flex;
+             gap: 24px; /*Espacio mínimo entre el logo y el menú*/
+             margin-bottom: 130px;
+         }
+             .logo{
+                  font-weight: 700; /*Grosor de la letra: 700 es negritas*/
+                  font-size: 18px;  /*Tamaño de letra*/
+                  line-height: 1.3; /*Altura de cada renglón: 1.3 veces el tamaño de la letra*/
+             }
+                 .logo span{
+                     font-size: 14px;
+                     font-weight: 400; /*Grosor normal, sin negritas*/
+                     opacity: 0.85; /*Lo vuelve 15% transparente, para que se vea más tenue*/
+                 }
+             .barra-navegacion {
+                 display: flex; /*Pone los enlaces en fila, uno junto al otro*/
+                 gap: 45px; /*Deja un espacio entre cada enlace*/
+                 list-style: none;
+             }
+                 .barra-navegacion a {
+                     color: #ffffff;
+                     text-decoration: none; /*Quita el subrayado que los enlaces traen por defecto*/
+                     font-size: 15px; /*Tamaño de letra*/
+                 }
+         .seccion-principal{
+             flex: 1; /*Ocupa todo el espacio vertical que sobre. Es lo que empuja el pie de página hasta abajo*/
+             text-align: center; /*Alinear texto al centro*/
+             justify-content: center; /*Centra horizontalmente*/
+             align-items: center; /*Centra verticalmente*/
+             padding: 20px 40px; /* Espacio interior*/
+         }
+         .tarjeta{
+             width: 100%; /*Ocupa todo el ancho disponible*/
+         }
+             .tarjeta h1 {
+                 color: #9E0757;
+                 font-family: 'Playfair Display', Georgia, serif;
+                 font-size: 30px;
+                 margin-bottom: 30px; /*Espacio debajo, antes del párrafo*/
+             }
+             .tarjeta input{
+                 font-family: "Poppins", sans-serif;
+                 margin-bottom: 10px;
+                 font-size: 16px;
+                 border-radius: 8px;
+                 }
+             .tarjeta div{
+                 margin-bottom:15px;
+             }
+             .boton-entrar{
+                 font-family: "Poppins", sans-serif;
+                 font-weight: 600;
+                 border: none;
+                 border-radius: 8px;
+                 padding: 5px 10px;
+                 font-size: 18px;
+                 color: #ffffff;
+                 background-color: #F9AA19;
+                 cursor: pointer;
+             }
+         .pie-pagina{
+             background-color: #102B50;
+             color:#ffffff;
+             text-align: center; /*Alinear texto al centro*/
+             padding: 16px;
+         }
+    /*TELEFONOS */
+
+@media (max-width: 768px) {
+
+    .encabezado {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+        margin-bottom: 35px;
+    }
+    .logo {
+        text-align: center;
+        font-size: 17px;
+    }
+    .barra-navegacion {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .barra-navegacion a {
+        font-size: 13px;
+    }
+    .seccion-principal {
+        padding: 25px 15px 35px;
+        text-align: center;
+    }
+    .tarjeta h1 {
+        font-size: 25px;
+        margin-bottom: 25px;
+    }
+    .tarjeta label {
+        font-size: 14px;
+    }
+    .tarjeta input {
+        width: 100%;
+        max-width: 280px;
+        min-height: 42px;
+        padding: 8px;
+        font-size: 14px;
+    }
+    .boton-entrar {
+        width: 100%;
+        max-width: 280px;
+        min-height: 45px;
+        font-size: 16px;
+    }
+    .pie-pagina {
+        font-size: 12px;
+        padding: 14px 10px;
+    }
+}
+</style>
+</head>
+
+<body><!--CUERPO-->
+
+   <header> <!--ENCABEZADO-->
+       <nav class="encabezado"> <!--nav significa navegacion-->
+           <div class = "logo">
+               BACHEO TRANSPARENTE <br>
+               <span>Alcaldía Miguel Hidalgo</span> <!--span sirve para poder darle estilo a una renglon del mismo parrafo-->
+           </div>
+           <ul class="barra-navegacion"> <!--ul significa lista sin orden, es decir no esta enumerada-->
+               <li> <!--il significa elemento de la lista-->
+                   <a href="Inicio.html">Inicio</a>
+               </li>
+               <li>
+                   <a href="reportar-bache.html">Reportar bache</a>
+               </li>
+               <li>
+                   <a href="presupuesto-transparencia.html">Presupuesto y transparencia </a>
+               </li>
+               <li>
+                   <a href="acceso-administrativo.html">Acceso administrativo</a>
+               </li>
+           </ul>
+       </nav>
+   </header>
+          <main class = "seccion-principal">
+              <section class="tarjeta"> <!--Primera seccion-->
+                  <h1>ACCESO ADMINISTRATIVO</h1>
+                  <div>
+                      <label for="Usuario">Usuario</label>
+                      <input type="text" id="usuario" required name = "usuario" />
+                  </div>
+                  <div>
+                      <label for="contrasena">Contraseña</label>
+                      <input type="password" id="contrasena" required name ="contrasena"/>
+                  </div>
+                  <a href= "Administrativo.html">
+                  <button class = "boton-entrar">Entrar</button>
+                  </a>
+              </section>
+          </main>
+   <footer class = "pie-pagina">Alcaldía Miguel Hidalgo · Bacheo transparente</footer>
+</body>
+</html>
