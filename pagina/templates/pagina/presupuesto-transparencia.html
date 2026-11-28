@@ -276,16 +276,18 @@
                 <div class="presupuestos">
                     <div class="dato">
                         <p>Presupuesto inicial</p>
-                        <strong>$0.00</strong>
+                        <strong>${{ alcaldia_inicial }}</strong>
                     </div>
                     <div class="separador"></div>
                     <div class="dato">
                         <p>Presupuesto restante</p>
-                        <strong>$0.00</strong>
+                        <strong>${{ alcaldia_restante }}</strong>
                     </div>
                 </div>
                 <div class="boton-reparados1">
-                    <button type="button">Baches reparados</button>
+                    <a href="{% url 'descargar_reparados' 'ALCALDIA' %}">
+                        <button type="button">Baches reparados</button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -295,16 +297,18 @@
                 <div class="presupuestos">
                     <div class="dato">
                         <p>Presupuesto inicial</p>
-                        <strong>$0.00</strong>
+                        <strong>${{ sobse_inicial }}</strong>
                     </div>
                     <div class="separador"></div>
                     <div class="dato">
                         <p>Presupuesto restante</p>
-                        <strong>$0.00</strong>
+                        <strong>${{ sobse_restante }}</strong>
                     </div>
                 </div>
                 <div class="boton-reparados2">
-                    <button type="button">Baches reparados</button>
+                    <a href="{% url 'descargar_reparados' 'SOBSE' %}">
+                        <button type="button">Baches reparados</button>
+                    </a>
                 </div>
             </div>
         </section>

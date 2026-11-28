@@ -1,5 +1,9 @@
+# Importa la funcion leer reportes de .conexion_sheets
+from .conexion_sheets import (leer_reportes,agregar_reporte, eliminar_reporte)
+
 # ENCABEZADOS DE GOOGLE SHEETS
 
+# Diccionario que contiene los encabezados de las pestañas de google sheets
 COLUMNAS = {
     "Por confirmar": ["ID", "Fecha", "Nombre", "Numero de telefono","Colonia", "Codigo postal", "Calle", "Referencia","Estado"],
     "Confirmados": ["ID", "Fecha", "Nombre", "Numero de telefono","Colonia", "Codigo postal", "Calle", "Referencia","Estado", "Largo", "Ancho", "Profundidad","Forma", "Latitud", "Longitud", "Prioridad","Ultima actualizacion"],
@@ -58,10 +62,13 @@ class ListaEnlazada:
     def eliminar(self, id_bache):
         actual = self.cabeza
         anterior = None
+        # Mientras haya registros
         while actual is not None:
+            # Compara los ID con el que se busca
             if str(actual.dato["ID"]) == str(id_bache):
-                # Si es el primer nodo, actualiza la cabeza
+                # Si no hay nodo anterior, el primero se elimina
                 if anterior is None:
+                    # El siguiente es la nueva cabeza
                     self.cabeza = actual.siguiente
                 else:
                     # Conecta el nodo anterior con el siguiente
@@ -72,18 +79,21 @@ class ListaEnlazada:
                     self.cola = anterior
                 # Devuelve los datos eliminados
                 return actual.dato
-            # Avanza al siguiente nodo
+            # El nodo actual se convierte en el anterior
             anterior = actual
+            # Avanza al siguiente nodo
             actual = actual.siguiente
         return None
 
- # Convierte un registro de google sheets en un diccionario, conservando los nombres originales de las columnas
+# Convierte un registro de google sheets en un diccionario, conservando los nombres originales de las columnas
 def convertir_a_diccionario(fila, columnas):
+    # Diccionario donde se guardara el reporte
     bache = {}
     # Relaciona cada encabezado con su dato
     for posicion, columna in enumerate(columnas):
         # Si existe un dato en esa posicion
         if posicion < len(fila):
+            # Relaciona el encabezado con su dato
             bache[columna] = fila[posicion]
         else:
             # Conserva las celdas vacias
@@ -94,13 +104,13 @@ def convertir_a_diccionario(fila, columnas):
 class SistemaBaches:
     """Administra los reportes mediante cinco listas enlazadas"""
     def __init__(self, ID_archivo, pestañas):
+        # Guarda el ID del archivo de google sheets
         self.ID_archivo = ID_archivo
-        self.listas = { nombre:ListaEnlazada() for nombre in pestañas}
+        # Crea un lsta para cada pestaña
+        self.listas = {nombre:ListaEnlazada() for nombre in pestañas}
 
     # Lee las cinco pestañas de google sheets y carga los reportes en sus listas correspondientes
     def cargar_reportes(self):
-        # Importa la funcion leer reportes de .conexion_sheets
-        from .conexion_sheets import leer_reportes
         # Define la ultima columna de cada pestaña para que lea hasta esa
         ultima_columna = {
             "Por confirmar": "I",
@@ -109,11 +119,11 @@ class SistemaBaches:
             "Reparados": "U",
             "Rechazados": "J"
         }
-        # Recorre las cinco pestañas
+        # Recorre las listas creadas para cada pestaña
         for nombre_hoja, lista in self.listas.items():
             # Lee los reportes de la pestaña actual
             filas = leer_reportes(nombre_hoja,ultima_columna[nombre_hoja],self.ID_archivo)
-            # Recorre los reportes encontrados
+            # Recorre las filas encontradas
             for fila in filas:
                 # Convierte cada fila en un diccionario
                 bache = convertir_a_diccionario(fila,COLUMNAS[nombre_hoja])
@@ -121,27 +131,25 @@ class SistemaBaches:
                 lista.agregar(bache)
 
     # Mueve un reporte entre pestañas del mismo archivo de google sheets
-    def mover_bache(self, id_bache, destino, nuevo_estado, fecha="", material= "", gastos_adicionales=""):
-        # Importa las funciones para modificar google sheets
-        from .conexion_sheets import (agregar_reporte, eliminar_reporte)
-        # Si la pestaña de destino esta en este sistema
-        if destino not in self.listas:
-            return False
+    def mover_bache(self, id_bache, destino, nuevo_estado, fecha="", material= "", gastos_adicionales="", costo_estimado = 0, costo_final = 0):
         # Busca el reporte en las listas del sistema actual
         for nombre_origen, lista_origen in self.listas.items():
+            # Busca el reporte mediante su ID
             bache = lista_origen.buscar(id_bache)
+            # Si el bache existe
             if bache is not None:
-                if nombre_origen == destino:
-                    return False
                 # Actualiza el estado del reporte
                 bache["Estado"] = nuevo_estado
-                #Si el destino es en reparacion
+                #Si el destino es en reparacion, actualiza lo siguientes datos
                 if destino == "En reparacion":
                     bache["Ultima actualizacion"] = fecha
                     bache["Material"] = material
+                    bache["Costo estimado"] = costo_estimado
+                # Si el destino es en reparados, actualiza lo siguientes datos
                 if destino == "Reparados":
                     bache["Ultima actualizacion"] = fecha
                     bache["Gastos adicionales"] = gastos_adicionales
+                    bache["Costo final"] = costo_final
                 # Guarda el reporte en el destino
                 guardado = agregar_reporte(destino, bache,COLUMNAS[destino],self.ID_archivo)
                 # Si se guardo bien
@@ -155,20 +163,13 @@ class SistemaBaches:
                 return False
         return False
 
-    # Busca un reporte en todas las listas
-    def buscar_bache(self, id_bache):
-        for lista in self.listas.values():
-            bache = lista.buscar(id_bache)
-            if bache is not None:
-                return bache
-        return None
-
     # Transfiere un reporte a otro archivo de google sheets
     def transferir_bache(self, id_bache, sistema_destino, nombre_destino, nuevo_estado):
-        from .conexion_sheets import agregar_reporte, eliminar_reporte
-        # Busca el reporte en el sistema actual
+        # Busca el reporte en las listas del archivo de orogen
         for nombre_origen, lista_origen in self.listas.items():
+            # Busca el bache por medio de su ID
             bache = lista_origen.buscar(id_bache)
+            # Si el bache existe
             if bache is not None:
                 # Actualiza el estado del reporte
                 bache["Estado"] = nuevo_estado

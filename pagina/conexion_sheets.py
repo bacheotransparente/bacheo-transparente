@@ -13,7 +13,7 @@ permisos = ["https://www.googleapis.com/auth/spreadsheets"]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Archivo con las credenciales
 archivo_credenciales = os.path.join(BASE_DIR, "credenciales", "Credenciales_google.json")
-# Rutas de los archivos de google sheets.
+# Rutas de los archivos de google sheets
 ID_confirmados = "1YUM0vvmvemZrzFdinXMIXJ3dcyWe6yM3yS_Pjn3j2xU"
 ID_alcaldia = "1ypAQoIlqcLxMcbJ8glwAmcYCYn3V_t9s89TGB2iJxp4"
 ID_SOBSE = "11YdTLmbcZbLbQKjmwkGWLKuQJefXaXoieOkOZno762E"
@@ -29,14 +29,14 @@ hojas_calculo = servicio.spreadsheets()
 def leer_reportes(nombre_hoja, ultima_columna, ID_archivo ):
     # Rango que se va a usar
     rango = f"'{nombre_hoja}'!A2:{ultima_columna}"
-    # Obtiene los registros de google sheets
+    # Consulta los registros de google sheets del rango
     reportes = hojas_calculo.values().get(spreadsheetId=ID_archivo,range=rango).execute()
-    # Obtiene las filas encontradas
+    # Regresa las filas encontradas
     return reportes.get("values", [])
 
-# Agregar reporte a google sheets
+# Agregar reporte a google sheets al final de la pestaña
 def agregar_reporte(nombre_hoja, datos, columnas, ID_archivo ):
-    # Organiza los datos respetando el orden de los campos
+    # Organiza los datos respetando el orden de los campos, si algun campo esta vacio se guarda asi
     fila = [datos.get(columna, "") for columna in columnas]
     # Inserta el reporte al final de la pestaña
     hojas_calculo.values().append(spreadsheetId=ID_archivo, range=f"'{nombre_hoja}'!A1",valueInputOption="RAW",insertDataOption="INSERT_ROWS",body={"values": [fila]}).execute()
@@ -44,7 +44,7 @@ def agregar_reporte(nombre_hoja, datos, columnas, ID_archivo ):
 
 # Buscar un reporte por medio de su ID
 def buscar_fila(nombre_hoja, id_bache, ID_archivo ):
-    # Lee los ID de la primera columna
+    # Consulta los ID de la primera columna
     resultado = hojas_calculo.values().get(spreadsheetId=ID_archivo,range=f"'{nombre_hoja}'!A2:A" ).execute()
     # Obtiene los ID encontrados
     identificadores = resultado.get("values", [])
@@ -63,18 +63,40 @@ def eliminar_reporte(nombre_hoja, id_bache, ID_archivo):
     # Si no encontr el reporte
     if fila is None:
         return False
-    # Obtiene la informacuion de las pestañas
+    # Consulta la informacuion de las pestañas
     informacion = hojas_calculo.get(spreadsheetId=ID_archivo).execute()
-    # Busca el ID en la pestaña especifica
-    id_hoja = None
+    id_hoja = 0
+    # Recorre las pestañas del archivo de google sheets
     for hoja in informacion["sheets"]:
+        # Consulta las propiedas para saber su nombre de la pestaña
         propiedades = hoja["properties"]
+        # Si su nombre es igual a la pestaña que se busca
         if propiedades["title"] == nombre_hoja:
+            # Obtiene su ID
             id_hoja = propiedades["sheetId"]
             break
-    # Si la pestaña existe
+    # Si la pestaña no existe
     if id_hoja is None:
         return False
     # Entonces elimina la fila completa
     hojas_calculo.batchUpdate(spreadsheetId=ID_archivo,body={"requests": [{"deleteDimension": {"range": {"sheetId": id_hoja,"dimension": "ROWS","startIndex": fila - 1,"endIndex": fila}}}]}).execute()
     return True
+
+# Actualiza los gastos acumulados y el presupuesto restante
+def actualizar_presupuesto(sistema, costo_final):
+    # Ver que archivo de google sheets es el que se actualiza
+    if sistema == "ALCALDIA":
+        ID_archivo = ID_alcaldia
+    else:
+        ID_archivo = ID_SOBSE
+    # Consultar los gastos acumulados actualizados
+    consulta_gastos_acumulados = hojas_calculo.values().get(spreadsheetId=ID_archivo,range="Presupuesto!B2").execute()
+    # Si la celda esta vacia, comenzar desde cero
+    gastos_acumulados = consulta_gastos_acumulados.get("values", [])
+    gastos_acumulados_actuales = (float(gastos_acumulados[0][0]) if gastos_acumulados else 0)
+    # Sumar el costo final del bache
+    gastos_acumulados_actualizados = (gastos_acumulados_actuales + float(costo_final))
+    # Guardar el nuevo total en Google Sheets
+    hojas_calculo.values().update(spreadsheetId=ID_archivo,range="Presupuesto!B2",valueInputOption="USER_ENTERED",body={"values": [[gastos_acumulados_actualizados]]}).execute()
+
+

@@ -214,9 +214,22 @@
                </button>
            </div>
            <div class="boton-consulta-reporte"> <!-- div significa contenedor, es decir permite agrupar-->
-               <input type="text" placeholder="Numero de folio"> <!--input permite al usuario escribir-->
-               <button>Buscar</button>
+               <form method="POST" action="{% url 'consultar_reporte' %}">
+                   {% csrf_token %}
+                   <input type="text" name="id_bache" placeholder="Ingresa tu ID" required>
+                   <button type="submit">Buscar</button>
+               </form>
            </div>
+           {% if buscado %}
+           {% if resultado %}
+           <div class="resultado-reporte">
+               <p>Estado: {{ resultado.estado }}</p>
+               <p>Última actualización: {{ resultado.actualizacion }}</p>
+           </div>
+           {% else %}
+           <p>No se encontró ningún reporte con ese ID.</p>
+           {% endif %}
+           {% endif %}
        </section>
    </main>
    <footer class = "pie-pagina">Alcaldía Miguel Hidalgo · Bacheo transparente</footer>

@@ -21,7 +21,8 @@ from django.contrib import admin
 from django.urls import path
 # Permite mostrar pagina de inicio y procesar los reportes
 from pagina.views import inicio, guardar_reporte, presupuesto_transparencia, acceso_administrativo, administrativo, \
-    por_confirmar, confirmados, en_reparacion, reparados, rechazados, a_reparacion, a_reparados, a_confirmados
+    por_confirmar, confirmados, en_reparacion, reparados, rechazados, a_reparacion, a_reparados, a_confirmados, descargar_reparados, \
+    consultar_reporte
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -39,5 +40,8 @@ urlpatterns = [
     path("a_reparacion/",a_reparacion, name="a_reparacion"),
     path("a_reparados/", a_reparados, name="a_reparados"),
     path("a_confirmados", a_confirmados, name = "a_confirmados"),
+    path("descargar_reparados/<str:sistema>/", descargar_reparados, name = "descargar_reparados"),
+    path("presupuesto_transparencia", presupuesto_transparencia, name="presupuesto_transparencia"),
+    path("consultar_reporte/", consultar_reporte, name="consultar_reporte"),
 ]
 
