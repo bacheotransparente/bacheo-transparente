@@ -28,7 +28,11 @@ SECRET_KEY = 'django-insecure-clave-local-bacheo-transparente-2026'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "bacheo-transparente.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition

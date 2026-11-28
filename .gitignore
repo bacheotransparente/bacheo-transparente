@@ -1,1 +1,6 @@
+# Ocultar carpeta de credenciales privadas
 credenciales/
+
+# Ocultar archivos temporales de Python
+__pycache__/
+*.py[cod]
