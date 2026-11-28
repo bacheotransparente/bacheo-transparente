@@ -104,7 +104,7 @@ def guardar_reporte(request):
             general.listas["Por confirmar"].agregar(bache)
             # Muestra el ID al usuario
         return render(request,"pagina/confirmar-reporte.html",{"id_bache": id_bache})
-    return render(request, "pagina/Reportar-bache.html")
+    return render(request, "pagina/reportar-bache.html")
 
 # PASAR UN REPORTE DE POR CONFIRMAR A CONFIRMADO Y A QUIEN LE CORRESPONDA SU REPARACION
 
@@ -273,7 +273,7 @@ def presupuesto_transparencia(request):
     alcaldia = hojas_calculo.values().get(spreadsheetId=ID_alcaldia,range="Presupuesto!A2:C2").execute().get("values", [[]])[0]
     sobse = hojas_calculo.values().get(spreadsheetId=ID_SOBSE,range="Presupuesto!A2:C2").execute().get("values", [[]])[0]
     # Muestra los presupuesto en la pestaña
-    return render(request, "pagina/Presupuesto-transparencia.html", {
+    return render(request, "pagina/presupuesto-transparencia.html", {
         "alcaldia_inicial": alcaldia[0],
         "alcaldia_restante": alcaldia[2],
         "sobse_inicial": sobse[0],
