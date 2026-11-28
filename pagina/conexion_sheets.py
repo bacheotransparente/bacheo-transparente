@@ -10,9 +10,19 @@ import os
 # Permisos para consultar y modificar google sheets
 permisos = ["https://www.googleapis.com/auth/spreadsheets"]
 # Obtiene la ruta principal del proyecto
+# Obtiene la ruta principal del proyecto
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Archivo con las credenciales
-archivo_credenciales = os.path.join(BASE_DIR, "credenciales", "Credenciales_google.json")
+#Si estamos trabajando en Render
+if os.path.exists("/etc/secrets/Credenciales_google.json"):
+    # Utiliza el archivo privado guardado en Render
+    archivo_credenciales = "/etc/secrets/Credenciales_google.json"
+else:
+    # Si estamos en PyCharm, usa el archivo local
+    archivo_credenciales = os.path.join(
+        BASE_DIR,
+        "credenciales",
+        "Credenciales_google.json"
+    )
 # Rutas de los archivos de google sheets
 ID_confirmados = "1YUM0vvmvemZrzFdinXMIXJ3dcyWe6yM3yS_Pjn3j2xU"
 ID_alcaldia = "1ypAQoIlqcLxMcbJ8glwAmcYCYn3V_t9s89TGB2iJxp4"
