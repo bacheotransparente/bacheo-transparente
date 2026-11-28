@@ -307,12 +307,15 @@ def consultar_reporte(request):
                 encabezados = datos[0]
                 # Recorre los reportes desde la fila 1
                 for fila in datos[1:]:
-                    if fila[encabezados.index("ID")] == id_bache:
-                        resultado = {
-                            "estado": fila[encabezados.index("Estado")],
-                            "actualizacion": fila[encabezados.index("Ultima actualizacion")]
-                        }
-                        break
+                    resultado = {
+                        "estado": fila[encabezados.index("Estado")],
+                        "actualizacion": (
+                            fila[encabezados.index("Ultima actualizacion")]
+                            if "Ultima actualizacion" in encabezados
+                            else fila[encabezados.index("Fecha")]
+                        )
+                    }
+                    break
                 if resultado:
                     break
             if resultado:
